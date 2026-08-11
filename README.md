@@ -1,52 +1,54 @@
-# 📱 TaskFlow Flutter App
+# TaskFlow Flutter
 
-A high-performance, cross-platform task management mobile application built with **Flutter (Dart)**. It showcases clean architecture principles, modern Material 3 design, Provider state management, and seamless RESTful API integration.
+A working Flutter task-management app with an offline-first data layer, persistent local storage, searchable and filterable task lists, task creation/editing, priorities, due dates, tags, completion tracking, and an HTTP service ready for Laravel synchronization.
 
----
+## Implemented product features
 
-## 🛠️ Tech Stack & Architecture
+| Feature | Details |
+|---|---|
+| Dashboard | Completion ring, open-task count, and a focused daily overview |
+| Task lifecycle | Create, edit, complete, and delete tasks |
+| Organization | Search by title, description, or tags; filter by all/open/completed |
+| Planning | Due dates, priorities, descriptions, and tag chips |
+| Persistence | Tasks survive app restarts through SharedPreferences |
+| Integration boundary | `TaskApiService` provides typed HTTP calls for a Laravel `/tasks` API |
+| Quality | Serialization unit test and separated model/provider/service layers |
 
-- **Framework**: Flutter / Dart (SDK >=3.0.0)
-- **State Management**: Provider (ChangeNotifier pattern)
-- **Networking**: HTTP package with async error handling
-- **Local Storage**: Shared Preferences
-- **UI/UX**: Material 3 Design System with responsive layouts
+## Stack
 
----
+- Flutter / Dart 3
+- Material 3
+- Provider for reactive state management
+- SharedPreferences for offline persistence
+- HTTP for API integration
 
-## 📦 Core Features
+## Run locally
 
-1. **Clean State Management**:
-   - Centralized business logic using Provider for reactive UI updates.
-2. **Interactive Task Management**:
-   - Create, complete, and delete tasks with real-time UI synchronization.
-3. **REST API Ready**:
-   - Structured service layer ready to connect with backend APIs (e.g., Laravel backend).
-4. **Modern UI & Animations**:
-   - Custom cards, clean typography, and intuitive floating action navigation.
+Install the Flutter SDK, then run:
 
----
+```bash
+git clone https://github.com/ahmedemadm90/taskflow-flutter.git
+cd taskflow-flutter
+flutter pub get
+flutter test
+flutter run
+```
 
-## ⚙️ Installation & Getting Started
+The app works without a server by using local storage. To connect it to a Laravel deployment, configure the `baseUrl` in `TaskApiService` and set a Sanctum token with `setToken`.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/ahmedemadm90/taskflow-flutter.git
-   cd taskflow-flutter
-   ```
+## Source layout
 
-2. **Install dependencies**:
-   ```bash
-   flutter pub get
-   ```
+```text
+lib/
+├── main.dart                         App bootstrap and Material 3 theme
+├── models/task.model.dart             Serializable task domain model
+├── providers/task_provider.dart       Filters, CRUD, persistence, and derived metrics
+├── services/local_task_store.dart     SharedPreferences adapter
+├── services/task_api_service.dart     HTTP integration boundary
+└── views/home_view.dart               Dashboard, list, forms, and task actions
+test/task_model_test.dart              Serialization test
+```
 
-3. **Run the application**:
-   ```bash
-   flutter run
-   ```
+## Author
 
----
-
-## 👨‍💻 Author
-
-Developed with ❤️ by **Ahmed Emad** (Mobile & Full-Stack Developer).
+Ahmed Emad — Backend, Mobile, and Automation Developer.
